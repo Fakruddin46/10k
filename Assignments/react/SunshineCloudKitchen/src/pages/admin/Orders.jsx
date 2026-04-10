@@ -35,11 +35,9 @@ const Orders = () => {
       });
       if(res.ok) {
         fetchOrders();
-        if(orderToUpdate.email) {
-          const subject = encodeURIComponent(`Order Update: ${orderToUpdate.orderId || orderToUpdate.id}`);
-          const body = encodeURIComponent(`Hello ${orderToUpdate.customer},\n\nYour order from Sunshine Cloud Kitchen is now: ${newStatus}.\n\nYou can track your order at: https://10k-iota.vercel.app/tracking/${orderToUpdate.orderId || orderToUpdate.id}\n\nThank you!`);
-          window.open(`mailto:${orderToUpdate.email}?subject=${subject}&body=${body}`, '_blank');
-        }
+        // TRIGGER WHATSAPP
+        const message = `*Order Update: ${orderToUpdate.orderId || orderToUpdate.id}*\n\nHello ${orderToUpdate.customer},\n\nYour order from Sunshine Cloud Kitchen is now: *${newStatus}*.\n\nYou can track your order at: https://10k-iota.vercel.app/tracking/${orderToUpdate.orderId || orderToUpdate.id}\n\nThank you!`;
+        window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
       }
     } catch (err) {
       console.error("Error updating order", err);
