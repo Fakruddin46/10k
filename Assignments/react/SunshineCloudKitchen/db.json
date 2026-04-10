@@ -1,0 +1,97 @@
+{
+  "categories": [
+    {
+      "id": "1",
+      "name": "Popular",
+      "icon": "star"
+    },
+    {
+      "id": "2",
+      "name": "Burgers",
+      "icon": "hamburger"
+    },
+    {
+      "id": "3",
+      "name": "Pizza",
+      "icon": "pizza-slice"
+    },
+    {
+      "id": "4",
+      "name": "Healthy",
+      "icon": "leaf"
+    },
+    {
+      "id": "5",
+      "name": "Drinks",
+      "icon": "glass-water"
+    }
+  ],
+  "menu": [
+    {
+      "id": "1",
+      "name": "Classic Cheeseburger",
+      "price": 8.99,
+      "description": "Juicy beef patty with melted cheddar, lettuce, tomato, and our signature sauce.",
+      "category": "Burgers",
+      "rating": 4.8,
+      "image": "/assets/burger.png"
+    },
+    {
+      "id": "2",
+      "name": "Pepperoni Pizza",
+      "price": 14.5,
+      "description": "Crispy crust topped with homemade tomato sauce, mozzarella, and spicy pepperoni.",
+      "category": "Pizza",
+      "rating": 4.9,
+      "image": "/assets/pizza.png"
+    },
+    {
+      "id": "3",
+      "name": "Avocado Salad",
+      "price": 10.99,
+      "description": "Fresh greens, sliced avocado, cherry tomatoes, and light vinaigrette dressing.",
+      "category": "Healthy",
+      "rating": 4.7,
+      "image": "/assets/salad.png"
+    },
+    {
+      "id": "4",
+      "name": "Double Smash Burger",
+      "price": 12.99,
+      "description": "Two smashed beef patties, caramelized onions, American cheese.",
+      "category": "Burgers",
+      "rating": 4.9,
+      "image": "/assets/burger.png"
+    },
+    {
+      "id": "5",
+      "name": "Margherita Pizza",
+      "price": 12,
+      "description": "Classic Neapolitan pizza with fresh mozzarella, basil, and olive oil.",
+      "category": "Pizza",
+      "rating": 4.8,
+      "image": "/assets/pizza.png"
+    },
+    {
+      "id": "6",
+      "name": "Berry Smoothie",
+      "price": 5.99,
+      "description": "Refreshing blend of strawberries, blueberries, and yogurt.",
+      "category": "Drinks",
+      "rating": 4.6,
+      "image": "/assets/smoothie.png"
+    }
+  ],
+  "orders": [
+    {
+      "orderId": "SCK-1775796466975-BP2KOY",
+      "customer": "SHAIK FAKRUDDIN",
+      "date": "4/10/2026, 10:17:46 AM",
+      "total": 61,
+      "status": "Delivered",
+      "items": "1x Margherita Pizza",
+      "id": "sFN2eh9xFwI"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
