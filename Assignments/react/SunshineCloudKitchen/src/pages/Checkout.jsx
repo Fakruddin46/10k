@@ -10,7 +10,7 @@ const Checkout = () => {
   const navigate = useNavigate();
   const [isSuccess, setIsSuccess] = useState(false);
   const [formData, setFormData] = useState({
-    name: '', email: '', address: '', city: ''
+    name: '', email: '', mobile: '', address: '', city: ''
   });
 
   if (cartItems.length === 0 && !isSuccess) {
@@ -39,6 +39,7 @@ const Checkout = () => {
       orderId: 'SCK-' + Date.now() + '-' + Math.random().toString(36).substr(2, 6).toUpperCase(),
       customer: formData.name,
       email: formData.email,
+      mobile: formData.mobile,
       date: new Date().toLocaleString(),
       total: total,
       status: 'Pending',
@@ -58,6 +59,7 @@ const Checkout = () => {
       message += ` *Customer Details:*\n`;
       message += `Name: ${formData.name}\n`;
       message += `Email: ${formData.email}\n`;
+      message += `Mobile: ${formData.mobile}\n`;
       message += `Address: ${formData.address}, ${formData.city}\n\n`;
       
       message += ` *Order Details:*\n`;
@@ -118,6 +120,10 @@ const Checkout = () => {
                 <label>Email Address</label>
                 <input type="email" name="email" required onChange={handleInputChange} />
               </div>
+            </div>
+            <div className="form-group">
+              <label>WhatsApp Mobile Number</label>
+              <input type="tel" name="mobile" required onChange={handleInputChange} placeholder="10-digit number" />
             </div>
             <div className="form-group">
               <label>Delivery Address</label>
