@@ -38,6 +38,7 @@ const Checkout = () => {
     const newOrder = {
       orderId: 'SCK-' + Date.now() + '-' + Math.random().toString(36).substr(2, 6).toUpperCase(),
       customer: formData.name,
+      email: formData.email,
       date: new Date().toLocaleString(),
       total: total,
       status: 'Pending',
@@ -70,7 +71,7 @@ const Checkout = () => {
       message += `Please confirm my order! `;
 
       const encodedMessage = encodeURIComponent(message);
-      const whatsappNumber = "919876543210"; 
+      const whatsappNumber = "919494174038"; 
       const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
       
       window.open(whatsappUrl, '_blank');

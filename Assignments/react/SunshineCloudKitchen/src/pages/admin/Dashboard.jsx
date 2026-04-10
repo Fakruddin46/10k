@@ -4,13 +4,29 @@ import { API_URL } from '../../config';
 import './Admin.css';
 
 const Dashboard = () => {
-  const [stats, setStats] = useState({ items: 0 });
+  const [stats, setStats] = useState({ items: 0, customers: 0, revenue: 0, growth: 0 });
 
   useEffect(() => {
     fetch(`${API_URL}/menu`)
       .then(res => res.json())
-      .then(data => setStats({ items: data.length }))
+      .then(data => setStats(prev => ({ ...prev, items: data.length })))
       .catch(err => console.error("Error fetching stats", err));
+
+    fetch(`${API_URL}/orders`)
+      .then(res => res.json())
+      .then(orders => {
+        const uniqueCustomers = new Set(orders.map(o => o.email || o.customer)).size;
+        const totalRevenue = orders.reduce((sum, order) => sum + (order.total || 0), 0);
+        const growth = orders.length === 0 ? 0 : (orders.length * 2.5);
+
+        setStats(prev => ({
+          ...prev,
+          customers: uniqueCustomers,
+          revenue: totalRevenue,
+          growth: growth.toFixed(1)
+        }));
+      })
+      .catch(err => console.error("Error fetching order stats", err));
   }, []);
 
   return (
@@ -36,7 +52,7 @@ const Dashboard = () => {
           </div>
           <div className="stat-details">
             <h3>Total Revenue</h3>
-            <p className="stat-value">₹45,850</p>
+            <p className="stat-value">₹{stats.revenue.toLocaleString()}</p>
           </div>
         </div>
         <div className="stat-card">
@@ -45,7 +61,7 @@ const Dashboard = () => {
           </div>
           <div className="stat-details">
             <h3>Active Customers</h3>
-            <p className="stat-value">124</p>
+            <p className="stat-value">{stats.customers}</p>
           </div>
         </div>
         <div className="stat-card">
@@ -54,7 +70,7 @@ const Dashboard = () => {
           </div>
           <div className="stat-details">
             <h3>Growth</h3>
-            <p className="stat-value">+15.4%</p>
+            <p className="stat-value">+{stats.growth}%</p>
           </div>
         </div>
       </div>
