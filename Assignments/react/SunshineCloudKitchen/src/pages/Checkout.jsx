@@ -58,7 +58,7 @@ const Checkout = () => {
       // GOOGLE SHEETS INTEGRATION
       // ==========================================
       // Paste your Google Apps Script Web URL below:
-      const GOOGLE_SHEETS_WEBHOOK_URL = "PASTE_YOUR_GOOGLE_SCRIPT_URL_HERE";
+      const GOOGLE_SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycby2_JPe_Et01h5_GCnhnZtTC4jZK5WINl6eBTTB1uvtAVww3roB_Eop-j9KoOxJ4_Gw-w/exec";
       
       if(GOOGLE_SHEETS_WEBHOOK_URL.startsWith("https://script.google.com/")) {
         fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
