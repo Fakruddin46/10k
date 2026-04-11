@@ -52,11 +52,11 @@ const ManageMenu = () => {
     // Using your new Unsigned Upload Preset
     data.append("upload_preset", "menu_image"); 
     // IMPORTANT: Make sure to paste your actual cloud name here!
-    data.append("cloud_name", "PASTE_YOUR_CLOUD_NAME_HERE");
+    data.append("cloud_name", "digardcgq");
 
     try {
       // Don't forget to replace PASTE_YOUR_CLOUD_NAME_HERE in the URL too!
-      const res = await fetch("https://api.cloudinary.com/v1_1/PASTE_YOUR_CLOUD_NAME_HERE/image/upload", {
+      const res = await fetch("https://api.cloudinary.com/v1_1/digardcgq/image/upload", {
         method: "POST",
         body: data,
       });
