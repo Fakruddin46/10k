@@ -29,7 +29,7 @@ const Checkout = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const deliveryFee = 49;
     const total = getCartTotal() + deliveryFee;
 
@@ -53,14 +53,14 @@ const Checkout = () => {
         body: JSON.stringify(newOrder)
       });
       const savedOrder = await res.json();
-      
+
       // ==========================================
       // GOOGLE SHEETS INTEGRATION
       // ==========================================
       // Paste your Google Apps Script Web URL below:
       const GOOGLE_SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycby2_JPe_Et01h5_GCnhnZtTC4jZK5WINl6eBTTB1uvtAVww3roB_Eop-j9KoOxJ4_Gw-w/exec";
-      
-      if(GOOGLE_SHEETS_WEBHOOK_URL.startsWith("https://script.google.com/")) {
+
+      if (GOOGLE_SHEETS_WEBHOOK_URL.startsWith("https://script.google.com/")) {
         fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
           method: 'POST',
           mode: 'no-cors', // Bypass CORS preflight
@@ -68,7 +68,7 @@ const Checkout = () => {
           body: JSON.stringify(newOrder)
         }).catch(err => console.error("Google Sheets sync failed:", err));
       }
-      
+
       // WhatsApp Message Formatting
       let message = `*New Order from ${formData.name}* \n\n`;
       message += ` *Customer Details:*\n`;
@@ -76,27 +76,27 @@ const Checkout = () => {
       message += `Email: ${formData.email}\n`;
       message += `Mobile: ${formData.mobile}\n`;
       message += `Address: ${formData.address}, ${formData.city}\n\n`;
-      
+
       message += ` *Order Details:*\n`;
       cartItems.forEach(item => {
         message += `- ${item.quantity}x ${item.name} (₹${(item.price * item.quantity).toFixed(2)})\n`;
       });
-      
+
       message += `\n *Subtotal*: ₹${getCartTotal().toFixed(2)}\n`;
       message += ` *Delivery*: ₹${deliveryFee.toFixed(2)}\n`;
       message += ` *TOTAL*: ₹${total.toFixed(2)}\n\n`;
       message += `Please confirm my order! `;
 
       const encodedMessage = encodeURIComponent(message);
-      const whatsappNumber = "919494174038"; 
+      const whatsappNumber = "919494174038";
       const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
-      
+
       window.open(whatsappUrl, '_blank');
 
       setIsSuccess(true);
       clearCart();
       navigate(`/tracking/${savedOrder.orderId}`); // Redirect here
-      
+
     } catch (err) {
       console.error("Failed to save order to dashboard", err);
     }
@@ -121,7 +121,7 @@ const Checkout = () => {
       <div className="checkout-header">
         <h1>Checkout</h1>
       </div>
-      
+
       <div className="checkout-layout">
         <div className="checkout-form-container">
           <form className="checkout-form" onSubmit={handleSubmit}>
@@ -149,14 +149,14 @@ const Checkout = () => {
               <input type="text" name="city" required onChange={handleInputChange} />
             </div>
 
-            <div className="payment-notice" style={{marginTop: '30px', padding: '15px', background: '#f8f9fa', borderRadius: '8px', borderLeft: '4px solid #25D366'}}>
-              <p style={{margin: 0, fontWeight: '500', display: 'flex', alignItems: 'center', gap: '10px'}}>
+            <div className="payment-notice" style={{ marginTop: '30px', padding: '15px', background: '#f8f9fa', borderRadius: '8px', borderLeft: '4px solid #25D366' }}>
+              <p style={{ margin: 0, fontWeight: '500', display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <PhoneCall size={20} color="#25D366" />
                 This will redirect you to WhatsApp to place the order and facilitate payment.
               </p>
             </div>
 
-            <button type="submit" className="btn-primary place-order-btn mt-20" style={{backgroundColor: '#25D366', color: 'white', border: 'none'}}>
+            <button type="submit" className="btn-primary place-order-btn mt-20" style={{ backgroundColor: '#25D366', color: 'white', border: 'none' }}>
               Place Order via WhatsApp (₹{(getCartTotal() + 49).toFixed(2)})
             </button>
           </form>
