@@ -24,6 +24,56 @@
       "id": "5",
       "name": "Drinks",
       "icon": "glass-water"
+    },
+    {
+      "id": "6",
+      "name": "Pickles",
+      "icon": "jar"
+    },
+    {
+      "id": "7",
+      "name": "Biryani",
+      "icon": "bowl-rice"
+    },
+    {
+      "id": "8",
+      "name": "Snacks",
+      "icon": "cookie"
+    },
+    {
+      "id": "9",
+      "name": "Chocolates",
+      "icon": "candy"
+    },
+    {
+      "id": "10",
+      "name": "Cakes",
+      "icon": "cake"
+    },
+    {
+      "id": "11",
+      "name": "Ice Creams",
+      "icon": "ice-cream"
+    },
+    {
+      "id": "12",
+      "name": "Soft Drinks",
+      "icon": "bottle-water"
+    },
+    {
+      "id": "13",
+      "name": "Curries",
+      "icon": "fire"
+    },
+    {
+      "id": "14",
+      "name": "Non-Veg",
+      "icon": "drumstick"
+    },
+    {
+      "id": "15",
+      "name": "Veg",
+      "icon": "carrot"
     }
   ],
   "menu": [
