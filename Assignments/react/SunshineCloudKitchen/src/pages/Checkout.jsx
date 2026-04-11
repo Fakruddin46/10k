@@ -54,6 +54,21 @@ const Checkout = () => {
       });
       const savedOrder = await res.json();
       
+      // ==========================================
+      // GOOGLE SHEETS INTEGRATION
+      // ==========================================
+      // Paste your Google Apps Script Web URL below:
+      const GOOGLE_SHEETS_WEBHOOK_URL = "PASTE_YOUR_GOOGLE_SCRIPT_URL_HERE";
+      
+      if(GOOGLE_SHEETS_WEBHOOK_URL.startsWith("https://script.google.com/")) {
+        fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
+          method: 'POST',
+          mode: 'no-cors', // Required to bypass Google's strict CORS policy
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newOrder)
+        }).catch(err => console.error("Google Sheets sync failed:", err));
+      }
+      
       // WhatsApp Message Formatting
       let message = `*New Order from ${formData.name}* \n\n`;
       message += ` *Customer Details:*\n`;
