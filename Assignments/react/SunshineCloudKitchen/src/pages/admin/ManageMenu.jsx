@@ -41,36 +41,27 @@ const ManageMenu = () => {
     setFormData({ ...formData, [name]: name === 'price' || name === 'rating' ? Number(value) : value });
   };
 
-  const handleImageUpload = async (e) => {
+  const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
     setUploadingImage(true);
-    const data = new FormData();
-    data.append("file", file);
-    
-    // IMPORTANT: Swap these with your actual Cloudinary Preset and Cloud Name when you create an account.
-    // Right now using the official public demonstration API key
-    data.append("upload_preset", "docs_upload_example_us"); 
-    data.append("cloud_name", "demo");
 
-    try {
-      const res = await fetch("https://api.cloudinary.com/v1_1/demo/image/upload", {
-        method: "POST",
-        body: data,
-      });
-      const uploadedImage = await res.json();
-      if (uploadedImage.secure_url) {
-        setFormData({ ...formData, image: uploadedImage.secure_url });
-      } else {
-        alert("Upload failed. Please try a different image.");
-      }
-    } catch (err) {
-      console.error("Error uploading image: ", err);
-      alert("Image upload failed. Please try again.");
-    } finally {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      // The result is a Base64 encoded string of the image
+      const base64String = reader.result;
+      setFormData({ ...formData, image: base64String });
       setUploadingImage(false);
-    }
+    };
+    reader.onerror = () => {
+      console.error("Error reading file.");
+      alert("Image processing failed. Please try a different image.");
+      setUploadingImage(false);
+    };
+    
+    // Read the file as a data URL (Base64)
+    reader.readAsDataURL(file);
   };
 
   const openAddModal = () => {
