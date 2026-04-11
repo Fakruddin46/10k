@@ -41,27 +41,38 @@ const ManageMenu = () => {
     setFormData({ ...formData, [name]: name === 'price' || name === 'rating' ? Number(value) : value });
   };
 
-  const handleImageUpload = (e) => {
+  const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
     setUploadingImage(true);
-
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      // The result is a Base64 encoded string of the image
-      const base64String = reader.result;
-      setFormData({ ...formData, image: base64String });
-      setUploadingImage(false);
-    };
-    reader.onerror = () => {
-      console.error("Error reading file.");
-      alert("Image processing failed. Please try a different image.");
-      setUploadingImage(false);
-    };
+    const data = new FormData();
+    data.append("file", file);
     
-    // Read the file as a data URL (Base64)
-    reader.readAsDataURL(file);
+    // Using your new Unsigned Upload Preset
+    data.append("upload_preset", "menu_image"); 
+    // IMPORTANT: Make sure to paste your actual cloud name here!
+    data.append("cloud_name", "PASTE_YOUR_CLOUD_NAME_HERE");
+
+    try {
+      // Don't forget to replace PASTE_YOUR_CLOUD_NAME_HERE in the URL too!
+      const res = await fetch("https://api.cloudinary.com/v1_1/PASTE_YOUR_CLOUD_NAME_HERE/image/upload", {
+        method: "POST",
+        body: data,
+      });
+      const uploadedImage = await res.json();
+      if (uploadedImage.secure_url) {
+        setFormData({ ...formData, image: uploadedImage.secure_url });
+      } else {
+        console.error(uploadedImage);
+        alert("Upload failed. Check your Cloud Name.");
+      }
+    } catch (err) {
+      console.error("Error uploading image: ", err);
+      alert("Image upload failed. Please try again.");
+    } finally {
+      setUploadingImage(false);
+    }
   };
 
   const openAddModal = () => {
