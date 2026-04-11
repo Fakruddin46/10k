@@ -64,6 +64,8 @@
   padding: 25px;
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-sm);
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .mt-20 { margin-top: 20px; }
@@ -73,6 +75,8 @@
 /* Admin Table */
 .table-responsive {
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
 }
 
 .admin-table {
@@ -200,4 +204,16 @@
   border-radius: 8px;
   color: #6c757d;
   border: 1px dashed #dee2e6;
+}
+
+@media (max-width: 768px) {
+  .content-card {
+    padding: 15px; /* Reduce massive padding on mobile */
+    border-radius: 8px; /* Slightly tighter border radius on small screens */
+  }
+  
+  .admin-table th, .admin-table td {
+    padding: 10px; /* Reduce padding in table cells so more fits on screen */
+    font-size: 0.85rem; /* Make text slightly smaller but legible so it fits better */
+  }
 }
