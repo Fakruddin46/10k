@@ -3,13 +3,13 @@ import { NavLink, Link } from 'react-router-dom';
 import { LayoutDashboard, Utensils, ShoppingBag, Settings, LogOut } from 'lucide-react';
 import './AdminSidebar.css';
 
-const AdminSidebar = () => {
+const AdminSidebar = ({ isOpen, closeSidebar }) => {
   const handleLogout = () => {
     localStorage.removeItem('isAdmin');
   };
 
   return (
-    <aside className="admin-sidebar">
+    <aside className={`admin-sidebar ${isOpen ? 'open' : ''}`}>
       <div className="sidebar-brand">
         <Link to="/">
           Sunshine<br/><span>Admin Panel</span>
@@ -17,15 +17,15 @@ const AdminSidebar = () => {
       </div>
 
       <nav className="sidebar-nav">
-        <NavLink to="/admin" end className={({isActive}) => isActive ? "nav-item active" : "nav-item"}>
+        <NavLink to="/admin" end onClick={closeSidebar} className={({isActive}) => isActive ? "nav-item active" : "nav-item"}>
           <LayoutDashboard size={20} />
           Dashboard
         </NavLink>
-        <NavLink to="/admin/menu" className={({isActive}) => isActive ? "nav-item active" : "nav-item"}>
+        <NavLink to="/admin/menu" onClick={closeSidebar} className={({isActive}) => isActive ? "nav-item active" : "nav-item"}>
           <Utensils size={20} />
           Manage Menu
         </NavLink>
-        <NavLink to="/admin/orders" className={({isActive}) => isActive ? "nav-item active" : "nav-item"}>
+        <NavLink to="/admin/orders" onClick={closeSidebar} className={({isActive}) => isActive ? "nav-item active" : "nav-item"}>
           <ShoppingBag size={20} />
           Orders
         </NavLink>
