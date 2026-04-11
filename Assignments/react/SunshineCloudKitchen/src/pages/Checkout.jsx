@@ -63,8 +63,8 @@ const Checkout = () => {
       if(GOOGLE_SHEETS_WEBHOOK_URL.startsWith("https://script.google.com/")) {
         fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
           method: 'POST',
-          mode: 'no-cors', // Required to bypass Google's strict CORS policy
-          headers: { 'Content-Type': 'application/json' },
+          mode: 'no-cors', // Bypass CORS preflight
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // Must use text/plain for no-cors to preserve the JSON body
           body: JSON.stringify(newOrder)
         }).catch(err => console.error("Google Sheets sync failed:", err));
       }
