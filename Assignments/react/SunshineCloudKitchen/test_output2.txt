@@ -1,0 +1,34 @@
+
+Running 1 test using 1 worker
+
+[1A[2K[1/1] [chromium] ΓÇ║ tests\checkout.spec.js:3:1 ΓÇ║ User can place an order successfully
+[1A[2K  1) [chromium] ΓÇ║ tests\checkout.spec.js:3:1 ΓÇ║ User can place an order successfully ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: locator('h2')
+    Expected: [32m"Order Sent via WhatsApp!"[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toHaveText" with timeout 5000ms[22m
+    [2m  - waiting for locator('h2')[22m
+
+
+      44 |   // 11. Assert Success! 
+      45 |   // We check if the Success Page loaded properly!
+    > 46 |   await expect(page.locator('h2')).toHaveText('Order Sent via WhatsApp!');
+         |                                    ^
+      47 |   // Also check if the URL transitioned to /tracking/...
+      48 |   await expect(page).toHaveURL(/.*tracking/);
+      49 | });
+        at E:\10K\Assignments\react\SunshineCloudKitchen\tests\checkout.spec.js:46:36
+
+    Error Context: test-results\checkout-User-can-place-an-order-successfully-chromium\error-context.md
+
+
+[1A[2K  1 failed
+    [chromium] ΓÇ║ tests\checkout.spec.js:3:1 ΓÇ║ User can place an order successfully ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+[36m  Serving HTML report at http://localhost:52705. Press Ctrl+C to quit.[39m

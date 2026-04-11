@@ -91,6 +91,28 @@
       "status": "Delivered",
       "items": "1x Margherita Pizza",
       "id": "sFN2eh9xFwI"
+    },
+    {
+      "orderId": "SCK-1775807779781-PCPSZH",
+      "customer": "Automated Robot",
+      "email": "robot@test.com",
+      "mobile": "8888888888",
+      "date": "4/10/2026, 1:26:19 PM",
+      "total": 57.99,
+      "status": "Pending",
+      "items": "1x Classic Cheeseburger",
+      "id": "WhAXFasOHhA"
+    },
+    {
+      "orderId": "SCK-1775807992135-A1JFM9",
+      "customer": "Automated Robot",
+      "email": "robot@test.com",
+      "mobile": "8888888888",
+      "date": "4/10/2026, 1:29:52 PM",
+      "total": 57.99,
+      "status": "Pending",
+      "items": "1x Classic Cheeseburger",
+      "id": "ZeC7-xN9I90"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

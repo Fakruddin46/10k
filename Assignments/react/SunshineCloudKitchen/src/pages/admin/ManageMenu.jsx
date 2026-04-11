@@ -9,6 +9,7 @@ const ManageMenu = () => {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingId, setEditingId] = useState(null);
+  const [uploadingImage, setUploadingImage] = useState(false);
   
   const [formData, setFormData] = useState({
     name: '', price: '', category: 'Burgers', description: '', image: '/assets/burger.png', rating: 4.5
@@ -38,6 +39,38 @@ const ManageMenu = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: name === 'price' || name === 'rating' ? Number(value) : value });
+  };
+
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setUploadingImage(true);
+    const data = new FormData();
+    data.append("file", file);
+    
+    // IMPORTANT: Swap these with your actual Cloudinary Preset and Cloud Name when you create an account.
+    // Right now using the official public demonstration API key
+    data.append("upload_preset", "docs_upload_example_us"); 
+    data.append("cloud_name", "demo");
+
+    try {
+      const res = await fetch("https://api.cloudinary.com/v1_1/demo/image/upload", {
+        method: "POST",
+        body: data,
+      });
+      const uploadedImage = await res.json();
+      if (uploadedImage.secure_url) {
+        setFormData({ ...formData, image: uploadedImage.secure_url });
+      } else {
+        alert("Upload failed. Please try a different image.");
+      }
+    } catch (err) {
+      console.error("Error uploading image: ", err);
+      alert("Image upload failed. Please try again.");
+    } finally {
+      setUploadingImage(false);
+    }
   };
 
   const openAddModal = () => {
@@ -175,9 +208,30 @@ const ManageMenu = () => {
                 </div>
 
                 <div className="form-group">
-                  <label>Image Source (URL or Path)</label>
-                  <input type="text" name="image" value={formData.image} onChange={handleInputChange} required />
-                  <small style={{color: '#6c757d', display: 'block', marginTop: '5px'}}>Example: /assets/burger.png</small>
+                  <label>Image Source</label>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '10px' }}>
+                    <input 
+                      type="file" 
+                      accept="image/*" 
+                      onChange={handleImageUpload} 
+                      disabled={uploadingImage}
+                      style={{ padding: '8px', border: '1px dashed #ccc', cursor: 'pointer' }}
+                    />
+                    {uploadingImage && <span style={{ fontSize: '14px', color: '#ff8c00', fontWeight: 'bold' }}>Uploading...</span>}
+                  </div>
+                  <input 
+                    type="text" 
+                    name="image" 
+                    value={formData.image} 
+                    onChange={handleInputChange} 
+                    required 
+                    placeholder="Or paste an image URL directly here"
+                  />
+                  {formData.image && (
+                    <div style={{ marginTop: '15px', border: '1px solid #ddd', padding: '5px', borderRadius: '8px', display: 'inline-block' }}>
+                      <img src={formData.image} alt="Preview" style={{ height: '70px', borderRadius: '5px', objectFit: 'cover' }} />
+                    </div>
+                  )}
                 </div>
 
                 <button type="submit" className="btn-primary w-100 mt-20">
