@@ -1,8 +1,5 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
-
-const CartContext = createContext();
-
-export const useCart = () => useContext(CartContext);
+import React, { useState, useEffect } from 'react';
+import { CartContext } from './CartContextInstance';
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState(() => {
@@ -10,7 +7,7 @@ export const CartProvider = ({ children }) => {
     if (saved) {
       try {
         return JSON.parse(saved);
-      } catch (e) {
+      } catch {
         return [];
       }
     }

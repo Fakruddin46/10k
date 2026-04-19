@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useCart } from '../context/CartContext';
+import { useCart } from '../context/useCart';
 import { useNavigate, Link } from 'react-router-dom';
 import { CheckCircle, PhoneCall } from 'lucide-react';
 import { API_URL } from '../config';

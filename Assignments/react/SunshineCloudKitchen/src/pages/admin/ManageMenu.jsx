@@ -89,6 +89,29 @@ const ManageMenu = () => {
 
   const closeModal = () => setIsModalOpen(false);
 
+  const handleAddCategory = async () => {
+    const newCategory = window.prompt("Enter new category name:");
+    if (!newCategory || newCategory.trim() === '') return;
+    
+    try {
+      const res = await fetch(`${API_URL}/categories`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: newCategory.trim(), icon: "utensils" }) // Using a generic icon for dynamic ones
+      });
+      if (res.ok) {
+        const addedCategory = await res.json();
+        setCategories([...categories, addedCategory]);
+        setFormData({ ...formData, category: addedCategory.name });
+      } else {
+        alert("Failed to add category");
+      }
+    } catch (err) {
+      console.error("Error adding category", err);
+      alert("Error adding category. Please try again.");
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const url = editingId ? `${API_URL}/menu/${editingId}` : `${API_URL}/menu`;
@@ -198,9 +221,14 @@ const ManageMenu = () => {
                   </div>
                   <div className="input-field">
                     <label>Category</label>
-                    <select name="category" value={formData.category} onChange={handleInputChange} required>
-                      {categories.map(c => <option key={c.id} value={c.name}>{c.name}</option>)}
-                    </select>
+                    <div style={{ display: 'flex', gap: '10px' }}>
+                      <select name="category" value={formData.category} onChange={handleInputChange} required style={{ flex: 1 }}>
+                        {categories.map(c => <option key={c.id} value={c.name}>{c.name}</option>)}
+                      </select>
+                      <button type="button" onClick={handleAddCategory} className="btn-primary" style={{ padding: '0 15px', display: 'flex', alignItems: 'center', justifyContent: 'center' }} title="Add New Category">
+                        <Plus size={20} />
+                      </button>
+                    </div>
                   </div>
                 </div>
 

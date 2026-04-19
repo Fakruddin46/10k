@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Star, Plus, Check } from 'lucide-react';
-import { useCart } from '../context/CartContext';
+import { useCart } from '../context/useCart';
 import { API_URL } from '../config';
 import './Menu.css';
 
